@@ -14,7 +14,26 @@ class PiezasTest : public ::testing::Test
 		virtual void TearDown(){} //clean up after each test, (before destructor) 
 };
 
-TEST(PiezasTest, sanityCheck)
-{
-	ASSERT_TRUE(true);
+TEST(PiezasTest, constructor) {
+    Piezas myBoard;
+    for(int r=0; r<BOARD_ROWS; r++) {
+        for(int c=0; c<BOARD_COLS; c++) {
+            EXPECT_EQ(Blank, myBoard.pieceAt(r, c));
+        }
+    }
+}
+
+TEST(PiezasTest, gameState) {
+    Piezas myBoard;
+
+    myBoard.dropPiece(0);
+    myBoard.dropPiece(0);
+    myBoard.dropPiece(1);
+    myBoard.dropPiece(1);
+    myBoard.dropPiece(2);
+    myBoard.dropPiece(2);
+
+    myBoard.print();
+
+    EXPECT_EQ(Invalid, myBoard.gameState());
 }

@@ -44,6 +44,15 @@ void Piezas::reset() {
     }
 }
 
+void Piezas::print() {
+    for(int r=0; r<BOARD_ROWS; r++) {
+        for(int c=0; c<BOARD_COLS; c++) {
+            std::cout << pieceAt(r, c) << " ";
+        }
+        std::cout << std::endl;
+    }
+}
+
 /**
  * Places a piece of the current turn on the board, returns what
  * piece is placed, and toggles which Piece's turn it is. dropPiece does 
@@ -66,9 +75,9 @@ Piece Piezas::dropPiece(int column) {
 
                 return justPlaced;
             }
-
-            return Blank;
         }
+
+        return Blank;
     } else {
         return Invalid;
     }
@@ -103,6 +112,8 @@ Piece Piezas::gameState() {
     int maxX = 0;
     int maxO = 0;
 
+    Piece lastH = Blank;
+    Piece lastV = Blank;
     for(int r=0; r<BOARD_ROWS; r++) {
         for(int c=0; c<BOARD_COLS; c++) {
             Piece cur = pieceAt(r, c); 
@@ -111,21 +122,32 @@ Piece Piezas::gameState() {
 
             if(cur != Blank && cur == prevH) {
                 if(cur == X) {
+                    if(lastH != cur) {
+                        if(maxO < oH) {
+                            maxO = oH;
+                            oH = 0;
+                        }
+                    }
+
                     ++xH;
                 } else {
+                    if(lastH != cur) {
+                        if(maxX < xH) {
+                            maxX = xH;
+                            xH = 0;
+                        }
+                    }
+
                     ++oH;
                 }
             } else {
-                if(xH > maxX)
-                    maxX = xH;
-                if(oH > maxO)
-                    maxO = oH;
-
-                xH = 0;
-                oH = 0;
+                lastH = cur;
             }
         }
     }
+std::cout << "maxX = " << maxX << std::endl;
+std::cout << "maxO = " << maxO << std::endl;
+    return Invalid;
 }
 
 
