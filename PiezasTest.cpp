@@ -139,6 +139,26 @@ TEST(PiezasTest, gameState) {
     }
     EXPECT_EQ(Blank, myBoard.gameState());
 
+    // full-board with winner
+    myBoard.reset();
+    myBoard.dropPiece(0);
+    myBoard.dropPiece(1);
+    myBoard.dropPiece(0);
+    myBoard.dropPiece(2);
+    myBoard.dropPiece(0);
+    myBoard.dropPiece(3);
+    myBoard.dropPiece(1);
+    myBoard.dropPiece(4);
+    myBoard.dropPiece(2);
+    myBoard.dropPiece(4);
+    myBoard.dropPiece(3);
+    myBoard.dropPiece(1);
+    myBoard.dropPiece(4);
+    myBoard.dropPiece(2);
+    myBoard.dropPiece(4);
+    myBoard.dropPiece(3);
+    EXPECT_EQ(O, myBoard.gameState());
+
     // more permutations
     myBoard.reset();
     myBoard.dropPiece(1);
@@ -169,22 +189,3 @@ TEST(PiezasTest, gameState) {
     myBoard.dropPiece(0);
     EXPECT_EQ(O, myBoard.gameState());
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
