@@ -63,16 +63,16 @@ void Piezas::print() {
  * Trying to drop a piece where it cannot be placed loses the player's turn
 **/ 
 Piece Piezas::dropPiece(int column) {
+    Piece justPlaced = turn;
+    if(turn == X)
+        turn = O;
+    else
+        turn = X;
+
     if(column >= 0 && column < BOARD_COLS) {
         for(int r=0; r<BOARD_ROWS; r++) {
             if(pieceAt(r, column) == Blank) {
-                board[r][column] = turn;
-
-                Piece justPlaced = turn;
-                if(turn == X)
-                    turn = O;
-                else
-                    turn = X;
+                board[r][column] = justPlaced;
 
                 return justPlaced;
             }

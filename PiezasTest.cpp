@@ -120,6 +120,27 @@ TEST(PiezasTest, gameState) {
     myBoard.dropPiece(1);
     myBoard.dropPiece(3);
     EXPECT_EQ(Invalid, myBoard.gameState());
+
+    // full-board cat's game
+    myBoard.reset();
+    for(int c=0; c<BOARD_COLS; c++) {
+        for(int r=0; r<BOARD_ROWS; r++)
+            myBoard.dropPiece(c);
+    }
+    EXPECT_EQ(Blank, myBoard.gameState());
+
+    // more permutations
+    myBoard.reset();
+    myBoard.dropPiece(1);
+    myBoard.dropPiece(3);
+    myBoard.dropPiece(1);
+    myBoard.dropPiece(3);
+    myBoard.dropPiece(1);
+    myBoard.dropPiece(3);
+    myBoard.dropPiece(4);
+    myBoard.dropPiece(2);
+myBoard.print();
+    EXPECT_EQ(Invalid, myBoard.gameState());
 }
 
 
