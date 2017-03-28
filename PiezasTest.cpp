@@ -4,8 +4,6 @@
 
 #include <gtest/gtest.h>
 #include "Piezas.h"
-#include <iostream>
-using namespace std;
  
 class PiezasTest : public ::testing::Test
 {
@@ -101,7 +99,6 @@ TEST(PiezasTest, gameState) {
     myBoard.dropPiece(3);
     myBoard.dropPiece(1);
     myBoard.dropPiece(3);
-myBoard.print();
     EXPECT_EQ(O, myBoard.gameState());
 
     // tie horizontal

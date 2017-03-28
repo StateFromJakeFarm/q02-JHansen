@@ -40,8 +40,6 @@ class Piezas
     **/
   	Piezas();
 
-    void print();
-
   	/**
      * Resets each board location to the Blank Piece value, with a board of the
      * same size as previously specified
