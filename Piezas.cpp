@@ -1,4 +1,5 @@
 #include "Piezas.h"
+#include<iostream>
 #include <vector>
 /** CLASS Piezas
  * Class for representing a Piezas vertical board, which is roughly based
@@ -54,8 +55,8 @@ void Piezas::reset() {
 Piece Piezas::dropPiece(int column) {
     if(column >= 0 && column < BOARD_COLS) {
         for(int r=0; r<BOARD_ROWS; r++) {
-            if(pieceAt(r, c) == Blank) {
-                board[r][c] = turn;
+            if(pieceAt(r, column) == Blank) {
+                board[r][column] = turn;
 
                 Piece justPlaced = turn;
                 if(turn == X)
@@ -79,7 +80,7 @@ Piece Piezas::dropPiece(int column) {
 **/
 Piece Piezas::pieceAt(int row, int column) {
     if(row >= 0 && row < BOARD_ROWS && column >= 0 && column < BOARD_COLS)
-        return board[r][c];
+        return board[row][column];
 
     return Invalid;
 }
@@ -99,16 +100,29 @@ Piece Piezas::gameState() {
     int oH = 0;
     int oV = 0;
 
+    int maxX = 0;
+    int maxO = 0;
+
     for(int r=0; r<BOARD_ROWS; r++) {
         for(int c=0; c<BOARD_COLS; c++) {
             Piece cur = pieceAt(r, c); 
             Piece prevH = pieceAt(r, c-1);
             Piece prevV = pieceAt(r-1, c);
 
-            if(cur == X) {
-                
-            } else if(cur == O) {
-                
+            if(cur != Blank && cur == prevH) {
+                if(cur == X) {
+                    ++xH;
+                } else {
+                    ++oH;
+                }
+            } else {
+                if(xH > maxX)
+                    maxX = xH;
+                if(oH > maxO)
+                    maxO = oH;
+
+                xH = 0;
+                oH = 0;
             }
         }
     }
