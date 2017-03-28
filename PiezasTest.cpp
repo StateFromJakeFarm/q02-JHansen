@@ -31,9 +31,17 @@ TEST(PiezasTest, gameState) {
     myBoard.dropPiece(1);
     myBoard.dropPiece(1);
     myBoard.dropPiece(2);
+
+    EXPECT_EQ(X, myBoard.gameState());
+
+    myBoard.reset();
+    myBoard.dropPiece(1);
     myBoard.dropPiece(2);
+    myBoard.dropPiece(1);
+    myBoard.dropPiece(3);
+    myBoard.dropPiece(1);
+    myBoard.dropPiece(3);
 
     myBoard.print();
-
-    EXPECT_EQ(Invalid, myBoard.gameState());
+    EXPECT_EQ(O, myBoard.gameState());
 }

@@ -1,6 +1,7 @@
 #include "Piezas.h"
 #include<iostream>
 #include <vector>
+using namespace std;
 /** CLASS Piezas
  * Class for representing a Piezas vertical board, which is roughly based
  * on the game "Connect Four" where pieces are placed in a column and 
@@ -47,9 +48,9 @@ void Piezas::reset() {
 void Piezas::print() {
     for(int r=0; r<BOARD_ROWS; r++) {
         for(int c=0; c<BOARD_COLS; c++) {
-            std::cout << pieceAt(r, c) << " ";
+            cout << pieceAt(r, c) << " ";
         }
-        std::cout << std::endl;
+        cout << endl;
     }
 }
 
@@ -112,42 +113,62 @@ Piece Piezas::gameState() {
     int maxX = 0;
     int maxO = 0;
 
-    Piece lastH = Blank;
-    Piece lastV = Blank;
+    int numFilled = 0;
+
     for(int r=0; r<BOARD_ROWS; r++) {
         for(int c=0; c<BOARD_COLS; c++) {
             Piece cur = pieceAt(r, c); 
             Piece prevH = pieceAt(r, c-1);
             Piece prevV = pieceAt(r-1, c);
 
-            if(cur != Blank && cur == prevH) {
-                if(cur == X) {
-                    if(lastH != cur) {
-                        if(maxO < oH) {
-                            maxO = oH;
-                            oH = 0;
-                        }
-                    }
+            if(cur != Blank)
+                ++numFilled;
 
+            // check horizontal
+            if(cur == prevH) {
+                if(cur == X)
                     ++xH;
-                } else {
-                    if(lastH != cur) {
-                        if(maxX < xH) {
-                            maxX = xH;
-                            xH = 0;
-                        }
-                    }
-
+                else if(cur == O)
                     ++oH;
-                }
             } else {
-                lastH = cur;
+                if(maxO < oH) {
+                    maxO = oH;
+                    oH = 0;
+                }
+                if(maxX < xH) {
+                    maxX = xH;
+                    xH = 0;
+                }
+            }
+
+
+            // check vertical
+            if(cur == prevV) {
+                if(cur == X)
+                    ++xV;
+                else
+                    ++oV;
+            } else {
+                if(maxO < oV) {
+                    maxO = oV;
+                    oV = 0;
+                }
+                if(maxX < xV) {
+                    maxX = xV;
+                    xV = 0;
+                }
             }
         }
     }
-std::cout << "maxX = " << maxX << std::endl;
-std::cout << "maxO = " << maxO << std::endl;
-    return Invalid;
+
+    if(numFilled == BOARD_ROWS*BOARD_COLS && maxX == maxO)
+        return Blank;
+    if(maxX == maxO)
+        return Invalid;
+    if(maxX > maxO)
+        return X;
+    else
+        return O;
 }
 
 
