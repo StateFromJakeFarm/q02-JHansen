@@ -94,4 +94,32 @@ Piece Piezas::pieceAt(int row, int column) {
  * line, it is a tie.
 **/
 Piece Piezas::gameState() {
+    int xH = 0;
+    int xV = 0;
+    int oH = 0;
+    int oV = 0;
+
+    for(int r=0; r<BOARD_ROWS; r++) {
+        for(int c=0; c<BOARD_COLS; c++) {
+            Piece cur = pieceAt(r, c); 
+            Piece prevH = pieceAt(r, c-1);
+            Piece prevV = pieceAt(r-1, c);
+
+            if(cur == X) {
+                
+            } else if(cur == O) {
+                
+            }
+        }
+    }
 }
+
+
+
+
+
+
+
+
+
+
