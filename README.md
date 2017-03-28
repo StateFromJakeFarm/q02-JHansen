@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 #Piezas
 
 ##Associated Enumerated Types
