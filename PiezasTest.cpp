@@ -46,6 +46,18 @@ TEST(PiezasTest, dropPiece) {
     EXPECT_EQ(X, myBoard.pieceAt(0, 0));
     // space above new piece should still be Blank
     EXPECT_EQ(Blank, myBoard.pieceAt(2, 0));
+
+    // place out of bounds
+    Piece ret = myBoard.dropPiece(4);
+    EXPECT_EQ(ret, Invalid);
+
+    // full column
+    myBoard.reset();
+    myBoard.dropPiece(3);
+    myBoard.dropPiece(3);
+    myBoard.dropPiece(3);
+    ret = myBoard.dropPiece(3);
+    EXPECT_EQ(ret, Blank);
 }
 
 TEST(PiezasTest, reset) {
