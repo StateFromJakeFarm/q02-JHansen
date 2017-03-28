@@ -141,21 +141,20 @@ Piece Piezas::gameState() {
                 }
             }
 
-
             // check vertical
             if(cur == prevV) {
                 if(cur == X)
                     ++xV;
-                else
+                else if(cur == O) {
                     ++oV;
+                    cout << "O " << oV << endl;
+                }
             } else {
                 if(maxO < oV) {
                     maxO = oV;
-                    oV = 0;
                 }
                 if(maxX < xV) {
                     maxX = xV;
-                    xV = 0;
                 }
             }
         }
